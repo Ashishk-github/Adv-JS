@@ -1,29 +1,29 @@
-let obj={num:10};
-function forCall(a){
-    return this.num+a;
+let posts=[
+    {title:'Post 1', body:'this is post 1',createAT:Date.now()},
+    {title:'Post 2', body:'this is post 2',createAT:Date.now()}
+    
+]
+function getPosts(){
+    setTimeout(()=>{
+        let output='';
+        let x=Date.now();
+        posts.forEach((post,index) => {
+            output+=`<li>${post.title} : Created ${Math.round((x-post.createAT)/1000)} seconds ago.</li>`;
+        });
+        document.body.innerHTML=output;
+    },1000);
+    var t=setTimeout(()=>{getPosts()},1000);
 }
-console.log(forCall.call(obj,1));
-let arr=[1,2,3];
-function forApply(a,b,c){
-    return this.num+a+b+c;
+
+function createPost(post,callback){
+    setTimeout(()=>{
+        post['createAT']=Date.now();
+        posts.push(post);
+        callback();
+    },5000);
 }
-console.log(forApply.apply(obj,arr));
-function forBind(a,b){
-    return this.num+a+b;
+createPost({title:'Post 3', body:'this is post 3'},getPosts);
+function create4thPost(post){
+        createPost(post,getPosts);
 }
-let forBindobj=forBind.bind(obj);
-console.log(forBindobj);
-//student obj
-let student={age:20};
-function studentBind(){
-    console.log(this.age);
-}
-const a=studentBind.bind(student);
-a()
-let multiply=function (x,y){
-    return x*y
-}
-let multiplybyTwo=multiply.bind(this,2)
-console.log(multiplybyTwo(3))
-let multiplybyThree=multiply.bind(this,3)
-console.log(multiplybyThree(10))
+create4thPost({title:'Post 4', body:'this is post 4'});
