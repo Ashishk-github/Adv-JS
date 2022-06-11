@@ -32,7 +32,7 @@ insert(r,28);
 insert(r,95);
 insert(r,75);
 insert(r,65);
-inorder(r)
+//inorder(r)
 function search(root,key){
     if(!root || root.val===key) return root
     else{
@@ -40,4 +40,11 @@ function search(root,key){
         else return search(root.right,key)
     }
 }
-console.log(search(r,50))
+function preorder(root){
+    if(root){
+        console.log(root.val);
+        preorder(root.left);
+        preorder(root.right);
+    }
+}
+preorder(r)
