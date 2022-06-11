@@ -40,11 +40,24 @@ function search(root,key){
         else return search(root.right,key)
     }
 }
-function preorder(root){
+function preorderRec(root){
     if(root){
         console.log(root.val);
-        preorder(root.left);
-        preorder(root.right);
+        preorderRec(root.left);
+        preorderRec(root.right);
     }
 }
-preorder(r)
+//preorderRec(r)
+function preorderIterative(root){
+    if(!root) return ;
+    let stack=new Array();
+    stack.push(root)
+    while(stack.length!==0){
+        let curr=stack.pop()
+        console.log(curr.val);
+        if(curr.right) stack.push(curr.right)
+        if (curr.left) stack.push(curr.left)
+    }
+
+}
+preorderIterative(r)
